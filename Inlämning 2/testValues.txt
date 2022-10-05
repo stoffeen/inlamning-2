@@ -1,0 +1,22 @@
+SEK 100 DKK 135 NOK 140
+EUR 116
+
+USD 950 AUD 657 NZD 574         CAD 754             GBP 112
+
+CLP 10
+
+ISK 7       YEN 7
+
+
+CNY 136
+
+CHF 105
+                                                RUB 16
+UAH 27
+
+
+INR 12 ILS 278
+
+            SAR 249
+                        KRW 1
+
