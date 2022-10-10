@@ -16,7 +16,7 @@ int main()
 {
     FILE *infile;
     char *buffer;
-    long num_bytes = 10000;
+    long num_bytes;
     int i;
 
 
@@ -47,7 +47,7 @@ int main()
 
 
     // Grab memory for the buffer to hold text
-    buffer = (char*)calloc(num_bytes, sizeof(char));
+    buffer = (char*)calloc(num_bytes, sizeof(char)*10000);
 
 
     // Memory error
