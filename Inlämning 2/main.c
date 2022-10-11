@@ -47,7 +47,7 @@ int main()
 
 
     // Grab memory for the buffer to hold text
-    buffer = (char*)calloc(num_bytes, sizeof(char)*10000);
+    buffer = (char*)calloc(num_bytes, sizeof(char));
 
 
     // Memory error
