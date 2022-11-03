@@ -3,11 +3,12 @@
 #include <stddef.h>
 #include <string.h>
 
+const int struct_length = 100;
 
 typedef struct
 {
     char *name;
-    char *value;
+    int value;
 }Currency;
 
 
@@ -22,20 +23,13 @@ int main()
 
 
     // Declaring how big the currency list is
-    Currency currencies_list[100];
+    Currency currencies_list[struct_length];
 
-
-    // Open file for reading
-    infile = fopen ("currencies.txt", "r");
-
-
-    // Quit if file doesn't exist
-    if(infile == NULL)
-    {
-        printf("Error while opening file %s", infile);
+    //Open file for reading, quit if file doesn't exist
+    if ((infile = fopen("currencies.txt","r")) == NULL) {
+        printf("Error! opening file");
         return 1;
     }
-
 
     // Get the number of bytes and setting the pointer at the last byte
     fseek(infile, 0L, SEEK_END);
@@ -60,43 +54,31 @@ int main()
     fclose(infile);
 
 
-    printf("Text from buffer: \n-----------------\n");
-    printf("%s%s\n", buffer, "\n------------------------------------");
-
-
     int next_curr = 0;
+    char *buf_ptr = buffer;
     char *buffer_text = strtok(buffer, " \t\n");
 
 
-    // Add words to currencies list as long it's not NULL
-    while (buffer_text != NULL)
+    // Add words to currencies list as long it's not NULL, and the list is not full
+    while (buffer_text != NULL && next_curr <= struct_length)
     {
         currencies_list[next_curr].name = buffer_text;
         buffer_text = strtok(NULL, " \t\n ");
-        currencies_list[next_curr].value = buffer_text;
+        currencies_list[next_curr].value = strtol(buffer_text, &buffer, 10);
         buffer_text = strtok(NULL, " \t\n");
         next_curr++;
     }
 
 
-
-    // Get the length of structlist
-    int structlength = sizeof(currencies_list)/sizeof(currencies_list[0]);
-
-
-    for (i = 0; i <= structlength; i++)
+    for (i = 0; i < next_curr; i++)
     {
         if(currencies_list[i].name != NULL)
-            printf("Currency: %s\t%s%s\t%s\n", currencies_list[i].name,"Value: ", currencies_list[i].value, "ore");
-        else
-        {
-            break;
-        }
+            printf("Currency: %s\t%s%d\t%s\n", currencies_list[i].name,"Value: ", currencies_list[i].value, "ore");
     }
 
 
     // Free the memory used for buffer
-    free(buffer);
+    free(buf_ptr);
 
     return 0;
 }
